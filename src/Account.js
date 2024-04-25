@@ -5,6 +5,6 @@ export default class Account {
         return this.#balance;
     };
     deposit = (amount) => {
-        this.#balance += amount;
+        (amount > 0) && (this.#balance += amount);
     };
 };
