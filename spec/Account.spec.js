@@ -86,3 +86,15 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 });
+
+describe("Account Withdrawal Tests:", () => {
+    it("should decrease the balance after deposit() is called", () => {
+        //Arrange
+        testAmount = 500;
+        expected = account.getBalance();
+        //Act
+        account.withdraw(testAmount);
+        //Assess
+        expect(account.getBalance()).toBeLessThan(expected);
+    });
+})
