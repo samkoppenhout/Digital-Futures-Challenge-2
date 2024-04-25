@@ -66,4 +66,14 @@ describe("Account Deposit Tests:", () => {
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should not change the balance if the amount is a boolean true", () => {
+        //Arrange
+        testAmount = true;
+        expected = account.getBalance();
+        //Act
+        account.deposit(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 });
