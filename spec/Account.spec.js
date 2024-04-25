@@ -9,6 +9,14 @@ beforeEach(() => {
 })
 
 describe("Account Deposit Tests:", () => {
+    it("should initialise the balance to 0", () => {
+        //Arrange
+        expected = 0;
+        //Act
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
+
     it("should increase the balance after deposit() is called", () => {
         //Arrange
         expected = account.getBalance();
