@@ -46,4 +46,14 @@ describe("Account Deposit Tests:", () => {
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should not change the balance if the amount is not an integer", () => {
+        //Arrange
+        testAmount = "Surprise!";
+        expected = account.getBalance();
+        //Act
+        account.deposit(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 });
