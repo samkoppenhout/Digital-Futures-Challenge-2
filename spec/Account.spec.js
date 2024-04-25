@@ -4,7 +4,7 @@ let account, testAmount, expected;
 
 beforeEach(() => {
     account = new Account;
-    testAmount = 500;
+    testAmount = undefined;
     expected = undefined;
 })
 
@@ -19,10 +19,31 @@ describe("Account Deposit Tests:", () => {
 
     it("should increase the balance after deposit() is called", () => {
         //Arrange
+        testAmount = 500;
         expected = account.getBalance();
         //Act
         account.deposit(testAmount);
         //Assess
         expect(account.getBalance()).toBeGreaterThan(expected);
+    });
+
+    it("should increase the balance by the correct amount", () => {
+        //Arrange
+        testAmount = 500;
+        expected = account.getBalance() + testAmount;
+        //Act
+        account.deposit(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
+
+    it("should not change the balance if the amount is negative", () => {
+        //Arrange
+        testAmount = -500
+        expected = account.getBalance();
+        //Act
+        account.deposit(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
     });
 });
