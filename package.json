@@ -1,0 +1,51 @@
+{
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "name": "challenge-2-bank-samkoppenhout",
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YzaBbnim) # Challenge 2 - Bank Challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "ansi-regex": "^6.0.1",
+    "ansi-styles": "^6.2.1",
+    "balanced-match": "^1.0.2",
+    "brace-expansion": "^2.0.1",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "cross-spawn": "^7.0.3",
+    "eastasianwidth": "^0.2.0",
+    "emoji-regex": "^9.2.2",
+    "foreground-child": "^3.1.1",
+    "glob": "^10.3.12",
+    "is-fullwidth-code-point": "^3.0.0",
+    "isexe": "^2.0.0",
+    "jackspeak": "^2.3.6",
+    "jasmine-core": "^5.1.2",
+    "lru-cache": "^10.2.0",
+    "minimatch": "^9.0.4",
+    "minipass": "^7.0.4",
+    "path-key": "^3.1.1",
+    "path-scurry": "^1.10.2",
+    "shebang-command": "^2.0.0",
+    "shebang-regex": "^3.0.0",
+    "signal-exit": "^4.1.0",
+    "string-width": "^5.1.2",
+    "string-width-cjs": "^4.2.3",
+    "strip-ansi": "^7.1.0",
+    "strip-ansi-cjs": "^6.0.1",
+    "which": "^2.0.2",
+    "wrap-ansi": "^8.1.0",
+    "wrap-ansi-cjs": "^7.0.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "jasmine"
+  },
+  "author": "",
+  "license": "ISC"
+}
