@@ -127,4 +127,14 @@ describe("Account Withdrawal Tests:", () => {
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should not change the balance if the amount is null", () => {
+        //Arrange
+        testAmount = null;
+        expected = account.getBalance();
+        //Act
+        account.deposit(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 })
