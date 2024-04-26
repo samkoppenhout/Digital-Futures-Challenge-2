@@ -1,3 +1,4 @@
+import test from "node:test";
 import Account from "../src/Account.js"
 
 let account, testAmount, expected;
@@ -37,7 +38,7 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is negative", () => {
+    it("should not increase the balance if the amount is negative", () => {
         //Arrange
         testAmount = -500
         expected = account.getBalance();
@@ -47,7 +48,7 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is a string", () => {
+    it("should not increase the balance if the amount is a string", () => {
         //Arrange
         testAmount = "Surprise!";
         expected = account.getBalance();
@@ -57,7 +58,7 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is null", () => {
+    it("should not increase the balance if the amount is null", () => {
         //Arrange
         testAmount = null;
         expected = account.getBalance();
@@ -67,7 +68,7 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is a boolean true", () => {
+    it("should not increase the balance if the amount is a boolean true", () => {
         //Arrange
         testAmount = true;
         expected = account.getBalance();
@@ -77,7 +78,7 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is undefined", () => {
+    it("should not increase the balance if the amount is undefined", () => {
         //Arrange
         expected = account.getBalance();
         //Act
@@ -91,6 +92,7 @@ describe("Account Withdrawal Tests:", () => {
     it("should decrease the balance after deposit() is called", () => {
         //Arrange
         testAmount = 500;
+        account.deposit(testAmount);
         expected = account.getBalance();
         //Act
         account.withdraw(testAmount);
@@ -98,9 +100,10 @@ describe("Account Withdrawal Tests:", () => {
         expect(account.getBalance()).toBeLessThan(expected);
     });
 
-    it("should increase the balance by the correct amount", () => {
+    it("should decrease the balance by the correct amount", () => {
         //Arrange
         testAmount = 500;
+        account.deposit(testAmount);
         expected = account.getBalance() - testAmount;
         //Act
         account.withdraw(testAmount);
@@ -108,7 +111,7 @@ describe("Account Withdrawal Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is negative", () => {
+    it("should not decrease the balance if the amount is negative", () => {
         //Arrange
         testAmount = -500
         expected = account.getBalance();
@@ -118,22 +121,42 @@ describe("Account Withdrawal Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is a string", () => {
+    it("should not decrease the balance if the amount is a string", () => {
         //Arrange
         testAmount = "Surprise!";
         expected = account.getBalance();
         //Act
-        account.deposit(testAmount);
+        account.withdraw(testAmount);
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should not change the balance if the amount is null", () => {
+    it("should not decrease the balance if the amount is null", () => {
         //Arrange
         testAmount = null;
         expected = account.getBalance();
         //Act
-        account.deposit(testAmount);
+        account.withdraw(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
+
+    it("should not decrease the balance if the amount is a boolean true", () => {
+        //Arrange
+        testAmount = true;
+        expected = account.getBalance();
+        //Act
+        account.withdraw(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
+
+    it("should not decrease the balance if the amount is greater than the current balance", () => {
+        //Arrange
+        testAmount = 500;
+        expected = account.getBalance();
+        //Act
+        account.withdraw(testAmount);
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
