@@ -211,12 +211,20 @@ describe("Add Transaction Tests:", () => {
         expect(account.deposit).toHaveBeenCalled();
     });
 
-    it("should add a transaction to transactionHistory whenever a transaction of type 'withdraw' is called", () => {
+    it("should add a transaction to transactionHistory whenever a transaction of type 'withdrawal' is called", () => {
         // Arrange
         expected = account.getTransactionHistory().length + 1;
         // Act
         account.addTransaction(testWithdrawal);
         // Assess
         expect(account.getTransactionHistory().length).toBe(expected);
+    });
+
+    it("should add a the correct transaction to transactionHistory whenever a transaction of type 'withdrawal' is called", () => {
+        // Arrange
+        // Act
+        account.addTransaction(testWithdrawal);
+        // Assess
+        expect(account.getTransactionHistory()).toContain(testWithdrawal);
     });
 });
