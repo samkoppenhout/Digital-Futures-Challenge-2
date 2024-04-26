@@ -107,4 +107,14 @@ describe("Account Withdrawal Tests:", () => {
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should not change the balance if the amount is negative", () => {
+        //Arrange
+        testAmount = -500
+        expected = account.getBalance();
+        //Act
+        account.withdraw(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 })
