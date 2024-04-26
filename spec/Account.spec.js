@@ -97,4 +97,14 @@ describe("Account Withdrawal Tests:", () => {
         //Assess
         expect(account.getBalance()).toBeLessThan(expected);
     });
+
+    it("should increase the balance by the correct amount", () => {
+        //Arrange
+        testAmount = 500;
+        expected = account.getBalance() - testAmount;
+        //Act
+        account.withdraw(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 })
