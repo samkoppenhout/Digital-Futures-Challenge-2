@@ -117,4 +117,14 @@ describe("Account Withdrawal Tests:", () => {
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should not change the balance if the amount is a string", () => {
+        //Arrange
+        testAmount = "Surprise!";
+        expected = account.getBalance();
+        //Act
+        account.deposit(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 })
