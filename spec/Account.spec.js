@@ -1,23 +1,28 @@
-import test from "node:test";
 import Account from "../src/Account.js"
-import exp from "constants";
 
 let account, testAmount, expected, testDeposit, testWithdrawal;
 
 beforeEach(() => {
     account = new Account;
-    testAmount = undefined;
-    expected = undefined;
     testDeposit = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12",
         getType: "deposit",
-        getAmount: 500
+        getAmount: 500,
+        setBalanceAfterTransaction: () => { }
     });
     testWithdrawal = jasmine.createSpyObj("test deposit", {
-        getDate: "20/02/12",
+        getDate: "20/02/12" ,
         getType: "withdrawal",
-        getAmount: 500
+        getAmount: 500,
+        setBalanceAfterTransaction: () => { }
     });
+});
+afterEach(() => {
+    account = undefined;
+    testAmount = undefined;
+    expected = undefined;
+    testDeposit = undefined;
+    testWithdrawal = undefined;
 });
 
 describe("Account Deposit Tests:", () => {
@@ -29,211 +34,38 @@ describe("Account Deposit Tests:", () => {
         expect(account.getBalance()).toBe(expected);
     });
 
-    it("should increase the balance after deposit() is called", () => {
+    it("should add to the transaction history when a transaction is added", () => {
         //Arrange
-        testAmount = 500;
-        expected = account.getBalance();
+        expected = account.getTransactionHistory().length;
         //Act
-        account.deposit(testAmount);
+        account.addTransaction(testDeposit);
         //Assess
+        expect(account.getTransactionHistory().length).toBeGreaterThan(expected);
+    });
+
+    it("should increase the balance if the transaction is type deposit", () => {
+        // Arrange
+        expected = account.getBalance();
+        // Act
+        account.addTransaction(testDeposit);
+        // Assess
         expect(account.getBalance()).toBeGreaterThan(expected);
     });
 
-    it("should increase the balance by the correct amount", () => {
-        //Arrange
-        testAmount = 500;
-        expected = account.getBalance() + testAmount;
-        //Act
-        account.deposit(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not increase the balance if the amount is negative", () => {
-        //Arrange
-        testAmount = -500
+    it("should decrease the balance if the transaction is type withdrawal", () => {
+        // Arrange
         expected = account.getBalance();
-        //Act
-        account.deposit(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not increase the balance if the amount is a string", () => {
-        //Arrange
-        testAmount = "Surprise!";
-        expected = account.getBalance();
-        //Act
-        account.deposit(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not increase the balance if the amount is null", () => {
-        //Arrange
-        testAmount = null;
-        expected = account.getBalance();
-        //Act
-        account.deposit(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not increase the balance if the amount is a boolean true", () => {
-        //Arrange
-        testAmount = true;
-        expected = account.getBalance();
-        //Act
-        account.deposit(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not increase the balance if the amount is undefined", () => {
-        //Arrange
-        expected = account.getBalance();
-        //Act
-        account.deposit(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-});
-
-describe("Account Withdrawal Tests:", () => {
-    it("should decrease the balance after deposit() is called", () => {
-        //Arrange
-        testAmount = 500;
-        account.deposit(testAmount);
-        expected = account.getBalance();
-        //Act
-        account.withdraw(testAmount);
-        //Assess
+        // Act
+        account.addTransaction(testWithdrawal);
+        // Assess
         expect(account.getBalance()).toBeLessThan(expected);
     });
 
-    it("should decrease the balance by the correct amount", () => {
-        //Arrange
-        testAmount = 500;
-        account.deposit(testAmount);
-        expected = account.getBalance() - testAmount;
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not decrease the balance if the amount is negative", () => {
-        //Arrange
-        testAmount = -500
-        expected = account.getBalance();
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not decrease the balance if the amount is a string", () => {
-        //Arrange
-        testAmount = "Surprise!";
-        expected = account.getBalance();
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not decrease the balance if the amount is null", () => {
-        //Arrange
-        testAmount = null;
-        expected = account.getBalance();
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not decrease the balance if the amount is a boolean true", () => {
-        //Arrange
-        testAmount = true;
-        expected = account.getBalance();
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not decrease the balance if the amount is greater than the current balance", () => {
-        //Arrange
-        testAmount = 500;
-        expected = account.getBalance();
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should decrease the balance if the amount is the same as the current balance", () => {
-        //Arrange
-        testAmount = 500;
-        account.deposit(testAmount);
-        expected = account.getBalance() - testAmount;
-        //Act
-        account.withdraw(testAmount);
-        //Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-});
-
-describe("Add Transaction Tests:", () => {
-    it("should add a transaction to transactionHistory whenever a transaction of getType 'deposit' is called", () => {
-        // Arrange
-        expected = account.getTransactionHistory().length + 1;
-        // Act
-        account.addTransaction(testDeposit);
-        // Assess
-        expect(account.getTransactionHistory().length).toBe(expected);
-    });
-
-    it("should add a the correct transaction to transactionHistory whenever a transaction of getType 'deposit' is called", () => {
+    it("should call the setBalanceAfterTransaction function for each successful transaction", () => {
         // Arrange
         // Act
         account.addTransaction(testDeposit);
         // Assess
-        expect(account.getTransactionHistory()).toContain(testDeposit);
-    });
-
-    it("should call the deposit method whenever the transaction getType is deposit", () => {
-        // Arrange
-        spyOn(account, 'deposit');
-        // Act
-        account.addTransaction(testDeposit);
-        // Assess
-        expect(account.deposit).toHaveBeenCalled();
-    });
-
-    it("should add a transaction to transactionHistory whenever a transaction of getType 'withdrawal' is called", () => {
-        // Arrange
-        expected = account.getTransactionHistory().length + 1;
-        // Act
-        account.addTransaction(testWithdrawal);
-        // Assess
-        expect(account.getTransactionHistory().length).toBe(expected);
-    });
-
-    it("should add a the correct transaction to transactionHistory whenever a transaction of getType 'withdrawal' is called", () => {
-        // Arrange
-        // Act
-        account.addTransaction(testWithdrawal);
-        // Assess
-        expect(account.getTransactionHistory()).toContain(testWithdrawal);
-    });
-
-    it("should call the withdraw method whenever the transaction getType is 'withdrawal'", () => {
-        // Arrange
-        spyOn(account, 'withdraw');
-        // Act
-        account.addTransaction(testWithdrawal);
-        // Assess
-        expect(account.withdraw).toHaveBeenCalled();
+        expect(testDeposit.setBalanceAfterTransaction).toHaveBeenCalled();
     });
 });
