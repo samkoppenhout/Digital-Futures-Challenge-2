@@ -13,11 +13,9 @@ export default class Account {
 
     addTransaction = (transaction) => {
         this.#transactionHistory.push(transaction);
-        if (transaction.type = "deposit") {
-            this.deposit(transaction.amount);
-        } else if ((transaction.type = "withdrawal")) {
-            this.withdraw(transaction.amount);
-        } else { console.log("Transaction type not recognised.") };
+        if (transaction.getType() === "deposit") { this.deposit(transaction.getAmount()) }
+        else if ((transaction.getType() === "withdrawal")) { this.withdraw(transaction.getAmount()) }
+        else { console.log("Transaction type not recognised.") };
     };
 
     deposit = (amount) => {

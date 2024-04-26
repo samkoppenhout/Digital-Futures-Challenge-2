@@ -9,14 +9,14 @@ beforeEach(() => {
     testAmount = undefined;
     expected = undefined;
     testDeposit = jasmine.createSpyObj("test deposit", {
-        Date: "20/02/12",
-        Type: "Deposit",
-        Amount: 500
+        getDate: "20/02/12",
+        getType: "deposit",
+        getAmount: 500
     });
     testWithdrawal = jasmine.createSpyObj("test deposit", {
-        Date: "20/02/12",
-        Type: "Withdrawal",
-        Amount: 500
+        getDate: "20/02/12",
+        getType: "withdrawal",
+        getAmount: 500
     });
 });
 
@@ -185,7 +185,7 @@ describe("Account Withdrawal Tests:", () => {
 });
 
 describe("Add Transaction Tests:", () => {
-    it("should add a transaction to transactionHistory whenever a transaction of type 'deposit' is called", () => {
+    it("should add a transaction to transactionHistory whenever a transaction of getType 'deposit' is called", () => {
         // Arrange
         expected = account.getTransactionHistory().length + 1;
         // Act
@@ -194,7 +194,7 @@ describe("Add Transaction Tests:", () => {
         expect(account.getTransactionHistory().length).toBe(expected);
     });
 
-    it("should add a the correct transaction to transactionHistory whenever a transaction of type 'deposit' is called", () => {
+    it("should add a the correct transaction to transactionHistory whenever a transaction of getType 'deposit' is called", () => {
         // Arrange
         // Act
         account.addTransaction(testDeposit);
@@ -202,7 +202,7 @@ describe("Add Transaction Tests:", () => {
         expect(account.getTransactionHistory()).toContain(testDeposit);
     });
 
-    it("should call the deposit method whenever the transaction type is deposit", () => {
+    it("should call the deposit method whenever the transaction getType is deposit", () => {
         // Arrange
         spyOn(account, 'deposit');
         // Act
@@ -211,7 +211,7 @@ describe("Add Transaction Tests:", () => {
         expect(account.deposit).toHaveBeenCalled();
     });
 
-    it("should add a transaction to transactionHistory whenever a transaction of type 'withdrawal' is called", () => {
+    it("should add a transaction to transactionHistory whenever a transaction of getType 'withdrawal' is called", () => {
         // Arrange
         expected = account.getTransactionHistory().length + 1;
         // Act
@@ -220,11 +220,20 @@ describe("Add Transaction Tests:", () => {
         expect(account.getTransactionHistory().length).toBe(expected);
     });
 
-    it("should add a the correct transaction to transactionHistory whenever a transaction of type 'withdrawal' is called", () => {
+    it("should add a the correct transaction to transactionHistory whenever a transaction of getType 'withdrawal' is called", () => {
         // Arrange
         // Act
         account.addTransaction(testWithdrawal);
         // Assess
         expect(account.getTransactionHistory()).toContain(testWithdrawal);
+    });
+
+    it("should call the withdraw method whenever the transaction getType is 'withdrawal'", () => {
+        // Arrange
+        spyOn(account, 'withdraw');
+        // Act
+        account.addTransaction(testWithdrawal);
+        // Assess
+        expect(account.withdraw).toHaveBeenCalled();
     });
 });
