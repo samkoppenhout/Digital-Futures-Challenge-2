@@ -160,4 +160,15 @@ describe("Account Withdrawal Tests:", () => {
         //Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should decrease the balance if the amount is the same as the current balance", () => {
+        //Arrange
+        testAmount = 500;
+        account.deposit(testAmount);
+        expected = account.getBalance() - testAmount;
+        //Act
+        account.withdraw(testAmount);
+        //Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 })
