@@ -2,7 +2,7 @@ import test from "node:test";
 import Account from "../src/Account.js"
 import exp from "constants";
 
-let account, testAmount, expected, testDeposit;
+let account, testAmount, expected, testDeposit, testWithdrawal;
 
 beforeEach(() => {
     account = new Account;
@@ -12,8 +12,13 @@ beforeEach(() => {
         Date: "20/02/12",
         Type: "Deposit",
         Amount: 500
-    })
-})
+    });
+    testWithdrawal = jasmine.createSpyObj("test deposit", {
+        Date: "20/02/12",
+        Type: "Withdrawal",
+        Amount: 500
+    });
+});
 
 describe("Account Deposit Tests:", () => {
     it("should initialise the balance to 0", () => {
@@ -180,7 +185,7 @@ describe("Account Withdrawal Tests:", () => {
 });
 
 describe("Add Transaction Tests:", () => {
-    it("should add a transaction to transactionHistory whenever deposit() is called", () => {
+    it("should add a transaction to transactionHistory whenever a transaction of type 'deposit' is called", () => {
         // Arrange
         expected = account.getTransactionHistory().length + 1;
         // Act
@@ -189,7 +194,7 @@ describe("Add Transaction Tests:", () => {
         expect(account.getTransactionHistory().length).toBe(expected);
     });
 
-    it("should add a the correct transaction to transactionHistory whenever deposit() is called", () => {
+    it("should add a the correct transaction to transactionHistory whenever a transaction of type 'deposit' is called", () => {
         // Arrange
         // Act
         account.addTransaction(testDeposit);
@@ -204,5 +209,14 @@ describe("Add Transaction Tests:", () => {
         account.addTransaction(testDeposit);
         // Assess
         expect(account.deposit).toHaveBeenCalled();
+    });
+
+    it("should add a transaction to transactionHistory whenever a transaction of type 'withdraw' is called", () => {
+        // Arrange
+        expected = account.getTransactionHistory().length + 1;
+        // Act
+        account.addTransaction(testWithdrawal);
+        // Assess
+        expect(account.getTransactionHistory().length).toBe(expected);
     });
 });
