@@ -35,6 +35,7 @@ export default class Account {
     };
 
     valueIsValid = (transaction) => {
-            return true;
-        }
+        if (transaction.getAmount() >= 0) { return true }
+        else { return false }
+    }
 };

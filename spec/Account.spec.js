@@ -1,6 +1,6 @@
 import Account from "../src/Account.js"
 
-let account, testAmount, expected, testDeposit, testWithdrawal;
+let account, expected, testDeposit, testWithdrawal;
 
 beforeEach(() => {
     account = new Account;
@@ -20,7 +20,6 @@ beforeEach(() => {
 
 afterEach(() => {
     account = undefined;
-    testAmount = undefined;
     expected = undefined;
     testDeposit = undefined;
     testWithdrawal = undefined;
@@ -78,6 +77,21 @@ describe("Data Validation Tests:", () => {
         expected = account.getBalance();
         // Act
         account.addTransaction(testWithdrawal);
+        // Assess
+        expect(account.getBalance()).toBe(expected);
+    });
+
+    it("should not change the balance if the amount is below 0, deposit", () => {
+        // Arrange
+        testDeposit = jasmine.createSpyObj("test deposit", {
+            getDate: "20/02/12",
+            getType: "deposit",
+            getAmount: -500,
+            setBalanceAfterTransaction: () => { }
+        });
+        expected = account.getBalance();
+        // Act
+        account.addTransaction(testDeposit);
         // Assess
         expect(account.getBalance()).toBe(expected);
     });
