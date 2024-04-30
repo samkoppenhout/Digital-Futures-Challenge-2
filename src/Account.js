@@ -20,12 +20,12 @@ export default class Account {
     };
 
     transactionIsValid = (transaction) => {
-        if (this.withdrawIsValid(transaction) && this.amountIsValid(transaction.getAmount())) {return true}
+        if (this.isAboveBalance(transaction) && this.amountIsValid(transaction.getAmount())) {return true}
         else {return false}
     };
 
-    withdrawIsValid = (transaction) => {
-        if (transaction.getAmount() <= this.#balance || transaction.getType() != "withdrawal") { return true }
+    isAboveBalance = (transaction) => {
+        if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= this.#balance)) || (transaction.getType() === "deposit")) { return true }
         else {return false}
     };
 
@@ -37,5 +37,5 @@ export default class Account {
     amountIsValid = (amount) => {
         if (typeof amount === "number" && amount > 0) { return true }
         else { return false }
-    }
+    };
 };
