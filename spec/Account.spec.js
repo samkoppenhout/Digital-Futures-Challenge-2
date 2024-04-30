@@ -17,6 +17,7 @@ beforeEach(() => {
         setBalanceAfterTransaction: () => { }
     });
 });
+
 afterEach(() => {
     account = undefined;
     testAmount = undefined;
@@ -25,7 +26,7 @@ afterEach(() => {
     testWithdrawal = undefined;
 });
 
-describe("Account Deposit Tests:", () => {
+describe("Transaction Tests:", () => {
     it("should initialise the balance to 0", () => {
         //Arrange
         expected = 0;
@@ -54,6 +55,7 @@ describe("Account Deposit Tests:", () => {
 
     it("should decrease the balance if the transaction is type withdrawal", () => {
         // Arrange
+        account.addTransaction(testDeposit);
         expected = account.getBalance();
         // Act
         account.addTransaction(testWithdrawal);
@@ -67,5 +69,16 @@ describe("Account Deposit Tests:", () => {
         account.addTransaction(testDeposit);
         // Assess
         expect(testDeposit.setBalanceAfterTransaction).toHaveBeenCalled();
+    });
+});
+
+describe("Data Validation Tests:", () => {
+    it("should not let you withdraw below the balance", () => {
+        // Arrange
+        expected = account.getBalance();
+        // Act
+        account.addTransaction(testWithdrawal);
+        // Assess
+        expect(account.getBalance()).toBe(expected);
     });
 });

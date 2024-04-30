@@ -3,7 +3,7 @@ export default class Account {
     #balance = 0;
     #transactionHistory = [];
 
-    // Getters
+    // Methods
     getBalance = () => {
         return this.#balance;
     };
@@ -11,9 +11,8 @@ export default class Account {
         return this.#transactionHistory;
     };
 
-    // Methods
     addTransaction = (transaction) => {
-        if (this.transactionIsValid() === true) {
+        if (this.transactionIsValid(transaction) === true) {
             this.#transactionHistory.push(transaction);
             this.balanceChange(transaction.getAmount(), transaction.getType());
             transaction.setBalanceAfterTransaction(this.#balance);
@@ -25,7 +24,17 @@ export default class Account {
         else if (type === "withdrawal") { this.#balance -= amount }
     };
 
-    transactionIsValid = () => {
-        return true;
+    transactionIsValid = (transaction) => {
+        if (this.withdrawIsValid(transaction) === true && this.valueIsValid(transaction) === true) {return true}
+        else {return false}
     };
+
+    withdrawIsValid = (transaction) => {
+        if (transaction.getAmount() <= this.#balance || transaction.getType() != "withdrawal") { return true }
+        else {return false}
+    };
+
+    valueIsValid = (transaction) => {
+            return true;
+        }
 };
