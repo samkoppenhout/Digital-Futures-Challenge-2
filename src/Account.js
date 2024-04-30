@@ -19,13 +19,8 @@ export default class Account {
         }
     };
 
-    balanceChange = (amount, type) => {
-        if (type === "deposit") { this.#balance += amount }
-        else if (type === "withdrawal") { this.#balance -= amount }
-    };
-
     transactionIsValid = (transaction) => {
-        if (this.withdrawIsValid(transaction) === true && this.valueIsValid(transaction) === true) {return true}
+        if (this.withdrawIsValid(transaction) && this.amountIsValid(transaction.getAmount())) {return true}
         else {return false}
     };
 
@@ -34,8 +29,13 @@ export default class Account {
         else {return false}
     };
 
-    valueIsValid = (transaction) => {
-        if (transaction.getAmount() >= 0) { return true }
+    balanceChange = (amount, type) => {
+        if (type === "deposit") { this.#balance += amount }
+        else if (type === "withdrawal") { this.#balance -= amount }
+    };
+
+    amountIsValid = (amount) => {
+        if (typeof amount === "number" && amount > 0) { return true }
         else { return false }
     }
 };
