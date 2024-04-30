@@ -95,4 +95,19 @@ describe("Data Validation Tests:", () => {
         // Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should not change the balance if the amount is below 0, withdrawal", () => {
+        // Arrange
+        testDeposit = jasmine.createSpyObj("test deposit", {
+            getDate: "20/02/12",
+            getType: "withdrawal",
+            getAmount: -500,
+            setBalanceAfterTransaction: () => { }
+        });
+        expected = account.getBalance();
+        // Act
+        account.addTransaction(testDeposit);
+        // Assess
+        expect(account.getBalance()).toBe(expected);
+    });
 });
