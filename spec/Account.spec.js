@@ -155,7 +155,7 @@ describe("Data Validation Tests:", () => {
         // Assess
         expect(account.getBalance()).toBe(expected);
     });
-    it("should not change the balance if the amount is a string, withdrawal", () => {
+    it("should not change the balance if the amount is a boolean true, withdrawal", () => {
         // Arrange
         testWithdrawal = jasmine.createSpyObj("test deposit", {
             getDate: "20/02/12",
