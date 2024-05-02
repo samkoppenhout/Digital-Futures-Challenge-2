@@ -3,14 +3,13 @@ import Account from "../src/Account.js"
 let account, expected, testDeposit, testWithdrawal;
 
 beforeEach(() => {
-    account = new Account;
+    account = new Account(0);
     testDeposit = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12",
         getType: "deposit",
         getAmount: 500,
         isValid: true,
         setBalanceAfterTransaction: () => { },
-        getOverdraftLimit: 0
     });
     testWithdrawal = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12" ,
@@ -18,7 +17,6 @@ beforeEach(() => {
         getAmount: 500,
         isValid: true,
         setBalanceAfterTransaction: () => { },
-        getOverdraftLimit: 0
     });
 });
 
@@ -82,7 +80,6 @@ describe("Transaction Tests:", () => {
             getAmount: 500,
             isValid: false,
             setBalanceAfterTransaction: () => { },
-            getOverdraftLimit: 0
         });
         expected = account.getTransactionHistory().length
         // Act
@@ -101,14 +98,14 @@ describe("Transaction Tests:", () => {
     });
 
     it("should allow negative withdrawal if within the accounts overdraft", () => {
-    testWithdrawal = jasmine.createSpyObj("test deposit", {
-        getDate: "20/02/12" ,
-        getType: "withdrawal",
-        getAmount: 500,
-        isValid: true,
-        setBalanceAfterTransaction: () => { },
-        getOverdraftLimit: 1000
-    });
+        account = new Account(1000)
+        testWithdrawal = jasmine.createSpyObj("test deposit", {
+            getDate: "20/02/12" ,
+            getType: "withdrawal",
+            getAmount: 500,
+            isValid: true,
+            setBalanceAfterTransaction: () => { },
+        });
         expected = account.getBalance() - 500;
         // Act
         account.addTransaction(testWithdrawal);

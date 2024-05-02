@@ -1,12 +1,12 @@
 export default class StatementPrinter {
-    print = (transactionHistory) => {
+    static print = (transactionHistory) => {
         console.log(`date       || credit  || debit   || balance`)
         transactionHistory.reverse().forEach(transaction => {console.log(this.concatenateTransaction(transaction))})
     }
-    concatenateTransaction = (transaction) => {
+    static concatenateTransaction = (transaction) => {
         return `${transaction.getDate()} || ${this.midSection(transaction)} || ${transaction.getBalanceAfterTransaction().toFixed(2)}`
     }
-    midSection = (transaction) => {
+    static midSection = (transaction) => {
         if (transaction.getType() === "deposit") {
             return `${transaction.getAmount().toFixed(2).padEnd(7)} ||        `
         } else { return `        || ${transaction.getAmount().toFixed(2).padEnd(7)}`}

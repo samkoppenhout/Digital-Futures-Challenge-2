@@ -9,7 +9,6 @@ let transaction3 = new Transaction("10/01/2022", "deposit", 5);
 let transaction4 = new Transaction("15/01/2022", "withdrawal", 1000);
 let transaction5 = new Transaction("20/01/2022", "deposit", 20);
 let transaction6 = new Transaction("22/01/2022", "withdrawal", 50);
-let printer = new Printer;
 
 
 account.addTransaction(transaction1);
@@ -19,4 +18,4 @@ account.addTransaction(transaction4);
 account.addTransaction(transaction5);
 account.addTransaction(transaction6);
 
-printer.print(account.getTransactionHistory());
+Printer.print(account.getTransactionHistory());

@@ -2,6 +2,12 @@ export default class Account {
     // Properties
     #balance = 0;
     #transactionHistory = [];
+    #overdraftLimit = 0;
+
+    constructor(overdraftLimit) { 
+        this.#overdraftLimit = overdraftLimit
+    }
+    
 
     // Methods
     getBalance = () => {
@@ -20,7 +26,7 @@ export default class Account {
     };
 
     isAboveBalance = (transaction) => {
-        if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= (this.#balance + transaction.getOverdraftLimit())) || (transaction.getType() === "deposit"))) { return true }
+        if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= (this.#balance + this.#overdraftLimit)) || (transaction.getType() === "deposit"))) { return true }
         else {return false}
     };
 

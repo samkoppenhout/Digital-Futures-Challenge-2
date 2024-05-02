@@ -1,7 +1,6 @@
 import StatementPrinter from "../src/StatementPrinter.js"
 
-let statementPrinter,
-    testTransaction,
+let testTransaction,
     testDate,
     testType,
     testAmount,
@@ -12,11 +11,9 @@ let statementPrinter,
     testTransaction3
 
 beforeEach(() => {
-    statementPrinter = new StatementPrinter();
 })
 
 afterEach(() => {
-    statementPrinter = undefined;
     testDate = undefined;
     testType = undefined;
     testAmount = undefined;
@@ -41,7 +38,7 @@ describe("Printer class tests", () => {
         expected = ("20/02/2012 || 500.00  ||         || 2500.00")
         // Act
         // Assess
-        expect(statementPrinter.concatenateTransaction(testTransaction)).toBe(expected)
+        expect(StatementPrinter.concatenateTransaction(testTransaction)).toBe(expected)
     })
 
     it("concatenate the required fields for a single transaction into a single string that matches the goal format for a withdrawal", () => {
@@ -59,7 +56,7 @@ describe("Printer class tests", () => {
         expected = ("20/02/2012 ||         || 500.00  || 2500.00")
         // Act
         // Assess
-        expect(statementPrinter.concatenateTransaction(testTransaction)).toBe(expected)
+        expect(StatementPrinter.concatenateTransaction(testTransaction)).toBe(expected)
     })
 
     it("should print the same number of lines as size of the transaction history, plus one for the header", () => {
@@ -86,7 +83,7 @@ describe("Printer class tests", () => {
         expected = testTransactionHistory.length + 1
         spyOn(console, 'log')
         // Act
-        statementPrinter.print(testTransactionHistory)
+        StatementPrinter.print(testTransactionHistory)
         // Assert
         expect(console.log).toHaveBeenCalledTimes(expected)
     })
