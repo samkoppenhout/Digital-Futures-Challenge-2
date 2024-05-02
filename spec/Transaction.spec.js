@@ -65,10 +65,21 @@ describe("Transaction Class Tests:", () => {
         expect(transaction.isValid()).toBe(false)
     })
 
-    it("should report not valid if the amount is not deposit or withdrawal", () => {
+    it("should report not valid if the amount is a string that is not deposit or withdrawal", () => {
+        // Arrange
+        testDate = "22/02/04";
+        testType = "test";
+        testAmount = 1;
+        // Act
+        transaction = new Transaction(testDate, testType, testAmount)
+        // Assess
+        expect(transaction.isValid()).toBe(false)
+    })
+
+    it("should report not valid if the amount is not a string", () => {
         // Arrange
         testDate = "22/02/04"
-        testType = "test"
+        testType = null
         testAmount = 1
         // Act
         transaction = new Transaction(testDate, testType, testAmount)
