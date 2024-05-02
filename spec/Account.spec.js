@@ -62,12 +62,27 @@ describe("Transaction Tests:", () => {
         expect(account.getBalance()).toBeLessThan(expected);
     });
 
-    it("should call the setBalanceAfterTransaction function for each successful transaction", () => {
+    it("should call the setBalanceAfterTransaction function after a successful transaction", () => {
         // Arrange
         // Act
         account.addTransaction(testDeposit);
         // Assess
         expect(testDeposit.setBalanceAfterTransaction).toHaveBeenCalled();
+    });
+
+    it("should not add a transaction to the transaction history if the type is not deposit or withdrawal", () => {
+        // Arrange
+            testDeposit = jasmine.createSpyObj("test transaction", {
+            getDate: "20/02/12",
+            getType: "danger",
+            getAmount: 500,
+            setBalanceAfterTransaction: () => { }
+            });
+        expected = account.getTransactionHistory().length
+        // Act
+        account.addTransaction(testDeposit);
+        // Assess
+        expect(account.getTransactionHistory().length).toBe(expected);
     });
 });
 
