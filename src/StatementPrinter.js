@@ -11,4 +11,5 @@ export default class StatementPrinter {
             return `${transaction.getAmount().toFixed(2).padEnd(7)} ||        `
         } else { return `        || ${transaction.getAmount().toFixed(2).padEnd(7)}`}
     }
+    
 }
