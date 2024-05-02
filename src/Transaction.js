@@ -1,15 +1,19 @@
 export default class Transaction {
+    
+    #dateRegex = /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/\d{2}$/;
     #date
     #type
     #amount
     #balanceAfterTransaction
     #valid
+
     constructor(date, type, amount) {
         this.#date = date
         this.#type = type
         this.#amount = amount
         this.checkIfValid()
     }
+
     getDate = () => {
         return this.#date;
     }
@@ -28,8 +32,9 @@ export default class Transaction {
     isValid = () => {
         return this.#valid
     }
+
     checkIfValid = () => {
-        if (this.checkAmount() && this.checkType()) { this.#valid = true }
+        if (this.checkAmount() && this.checkType() && this.checkDate()) { this.#valid = true }
         else { this.#valid = false }
     }
     checkAmount = () => {
@@ -39,5 +44,8 @@ export default class Transaction {
     checkType = () => { 
         if (this.#type === "deposit" || this.#type === "withdrawal") { return true }
         else { return false }
+    }
+    checkDate = () => {
+        return (this.#dateRegex.test(this.#date))
     }
 };

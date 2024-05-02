@@ -25,7 +25,7 @@ afterEach(() => {
     testWithdrawal = undefined;
 });
 
-xdescribe("Transaction Tests:", () => {
+describe("Transaction Tests:", () => {
     it("should initialise the balance to 0", () => {
         //Arrange
         expected = 0;
@@ -86,7 +86,7 @@ xdescribe("Transaction Tests:", () => {
     });
 });
 
-xdescribe("Data Validation Tests:", () => {
+describe("Data Validation Tests:", () => {
     it("should not let you withdraw below the balance", () => {
         // Arrange
         expected = account.getBalance();

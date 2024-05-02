@@ -86,4 +86,26 @@ describe("Transaction Class Tests:", () => {
         // Assess
         expect(transaction.isValid()).toBe(false)
     })
+
+    it("should report not valid if the date is not formatted as expected", () => {
+        // Arrange
+        testDate = "test"
+        testType = "deposit"
+        testAmount = 1
+        // Act
+        transaction = new Transaction(testDate, testType, testAmount)
+        // Assess
+        expect(transaction.isValid()).toBe(false)
+    })
+
+    it("should report not valid if the date is null", () => {
+        // Arrange
+        testDate = null;
+        testType = "deposit"
+        testAmount = 1
+        // Act
+        transaction = new Transaction(testDate, testType, testAmount)
+        // Assess
+        expect(transaction.isValid()).toBe(false)
+    })
 })
