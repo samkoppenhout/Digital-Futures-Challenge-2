@@ -65,6 +65,17 @@ describe("Transaction Class Tests:", () => {
         expect(transaction.isValid()).toBe(false)
     })
 
+    it("should report not valid if the amount is to more than 2 decimal places", () => {
+        // Arrange
+        testDate = "22/02/2004"
+        testType = "deposit"
+        testAmount = 1.002
+        // Act
+        transaction = new Transaction(testDate, testType, testAmount)
+        // Assess
+        expect(transaction.isValid()).toBe(false)
+    })
+
     it("should report not valid if the amount is not a number", () => {
         // Arrange
         testDate = "22/02/2004"
