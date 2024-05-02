@@ -2,7 +2,7 @@ import Account from "./src/Account.js";
 import Transaction from './src/Transaction.js';
 import Printer from "./src/StatementPrinter.js"
 
-let account = new Account;
+let account = new Account(1000);
 let transaction1 = new Transaction("01/01/2022", "deposit", 500);
 let transaction2 = new Transaction("05/01/2022", "deposit", 25);
 let transaction3 = new Transaction("10/01/2022", "deposit", 5);
