@@ -1,5 +1,5 @@
 export default class Transaction {
-    
+    // Properties
     #dateRegex = /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/\d{4}$/;
     #date
     #type
@@ -14,6 +14,7 @@ export default class Transaction {
         this.checkIfValid()
     }
 
+    // Methods
     getDate = () => {
         return this.#date;
     }
@@ -41,7 +42,6 @@ export default class Transaction {
         if (typeof this.#amount === "number" && this.#amount > 0 && ((this.#amount * 100) % 1 === 0)) { return true }
         else { return false }
     }
-    
     checkType = () => { 
         if (this.#type === "deposit" || this.#type === "withdrawal") { return true }
         else { return false }
