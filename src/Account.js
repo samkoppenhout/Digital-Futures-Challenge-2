@@ -20,7 +20,7 @@ export default class Account {
     };
 
     isAboveBalance = (transaction) => {
-        if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= this.#balance)) || (transaction.getType() === "deposit")) { return true }
+        if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= (this.#balance + transaction.getOverdraftLimit())) || (transaction.getType() === "deposit"))) { return true }
         else {return false}
     };
 

@@ -9,14 +9,16 @@ beforeEach(() => {
         getType: "deposit",
         getAmount: 500,
         isValid: true,
-        setBalanceAfterTransaction: () => { }
+        setBalanceAfterTransaction: () => { },
+        getOverdraftLimit: 0
     });
     testWithdrawal = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12" ,
         getType: "withdrawal",
         getAmount: 500,
         isValid: true,
-        setBalanceAfterTransaction: () => { }
+        setBalanceAfterTransaction: () => { },
+        getOverdraftLimit: 0
     });
 });
 
@@ -79,8 +81,9 @@ describe("Transaction Tests:", () => {
             getType: "danger",
             getAmount: 500,
             isValid: false,
-            setBalanceAfterTransaction: () => { }
-            });
+            setBalanceAfterTransaction: () => { },
+            getOverdraftLimit: 0
+        });
         expected = account.getTransactionHistory().length
         // Act
         account.addTransaction(testDeposit);
@@ -96,4 +99,20 @@ describe("Transaction Tests:", () => {
         // Assess
         expect(account.getBalance()).toBe(expected);
     });
+
+    it("should allow negative withdrawal if within the accounts overdraft", () => {
+    testWithdrawal = jasmine.createSpyObj("test deposit", {
+        getDate: "20/02/12" ,
+        getType: "withdrawal",
+        getAmount: 500,
+        isValid: true,
+        setBalanceAfterTransaction: () => { },
+        getOverdraftLimit: 1000
+    });
+        expected = account.getBalance() - 500;
+        // Act
+        account.addTransaction(testWithdrawal);
+        // Assess
+        expect(account.getBalance()).toBe(expected);
+    })
 });
