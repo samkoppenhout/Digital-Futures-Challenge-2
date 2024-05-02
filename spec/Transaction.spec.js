@@ -12,7 +12,7 @@ beforeEach(() => {
 describe("Transaction Class Tests:", () => { 
     it("should create a transaction object with the correct date value when the constructor is called", () => {
         // Arrange
-        testDate = "22/02/04"
+        testDate = "22/02/2004"
         testType = "deposit"
         testAmount = 1
         // Act
@@ -23,7 +23,7 @@ describe("Transaction Class Tests:", () => {
 
     it("should create a transaction object with the correct type value when the constructor is called", () => {
         // Arrange
-        testDate = "22/02/04"
+        testDate = "22/02/2004"
         testType = "deposit"
         testAmount = 1
         // Act
@@ -34,7 +34,7 @@ describe("Transaction Class Tests:", () => {
 
     it("should create a transaction object with the correct amount value when the constructor is called", () => {
         // Arrange
-        testDate = "22/02/04"
+        testDate = "22/02/2004"
         testType = "deposit"
         testAmount = 1
         // Act
@@ -43,9 +43,20 @@ describe("Transaction Class Tests:", () => {
         expect(transaction.getAmount()).toBe(testAmount)
     })
 
+    it("should report valid if the arguments are as expected", () => {
+        // Arrange
+        testDate = "22/02/2004"
+        testType = "deposit"
+        testAmount = 1
+        // Act
+        transaction = new Transaction(testDate, testType, testAmount)
+        // Assess
+        expect(transaction.isValid()).toBe(true)
+    })
+
     it("should report not valid if the amount is negative", () => {
         // Arrange
-        testDate = "22/02/04"
+        testDate = "22/02/2004"
         testType = "deposit"
         testAmount = -1
         // Act
@@ -56,7 +67,7 @@ describe("Transaction Class Tests:", () => {
 
     it("should report not valid if the amount is not a number", () => {
         // Arrange
-        testDate = "22/02/04"
+        testDate = "22/02/2004"
         testType = "deposit"
         testAmount = "string"
         // Act
@@ -67,7 +78,7 @@ describe("Transaction Class Tests:", () => {
 
     it("should report not valid if the amount is a string that is not deposit or withdrawal", () => {
         // Arrange
-        testDate = "22/02/04";
+        testDate = "22/02/2004";
         testType = "test";
         testAmount = 1;
         // Act
@@ -78,7 +89,7 @@ describe("Transaction Class Tests:", () => {
 
     it("should report not valid if the amount is not a string", () => {
         // Arrange
-        testDate = "22/02/04"
+        testDate = "22/02/2004"
         testType = null
         testAmount = 1
         // Act
