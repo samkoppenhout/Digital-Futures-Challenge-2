@@ -13,9 +13,9 @@ export default class Account {
 
     addTransaction = (transaction) => {
         if (this.transactionIsValid(transaction) === true) {
-            this.#transactionHistory.push(transaction);
             this.balanceChange(transaction.getAmount(), transaction.getType());
             transaction.setBalanceAfterTransaction(this.#balance);
+            this.#transactionHistory.push(transaction);
         }
     };
 
