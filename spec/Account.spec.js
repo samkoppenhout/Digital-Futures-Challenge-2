@@ -8,12 +8,14 @@ beforeEach(() => {
         getDate: "20/02/12",
         getType: "deposit",
         getAmount: 500,
+        isValid: true,
         setBalanceAfterTransaction: () => { }
     });
     testWithdrawal = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12" ,
         getType: "withdrawal",
         getAmount: 500,
+        isValid: true,
         setBalanceAfterTransaction: () => { }
     });
 });
@@ -70,12 +72,13 @@ describe("Transaction Tests:", () => {
         expect(testDeposit.setBalanceAfterTransaction).toHaveBeenCalled();
     });
 
-    it("should not add a transaction to the transaction history if the type is not deposit or withdrawal", () => {
+    it("should not add a transaction to the transaction history if it reports not valid", () => {
         // Arrange
-            testDeposit = jasmine.createSpyObj("test transaction", {
+        testDeposit = jasmine.createSpyObj("test transaction", {
             getDate: "20/02/12",
             getType: "danger",
             getAmount: 500,
+            isValid: false,
             setBalanceAfterTransaction: () => { }
             });
         expected = account.getTransactionHistory().length
@@ -84,101 +87,9 @@ describe("Transaction Tests:", () => {
         // Assess
         expect(account.getTransactionHistory().length).toBe(expected);
     });
-});
 
-describe("Data Validation Tests:", () => {
     it("should not let you withdraw below the balance", () => {
         // Arrange
-        expected = account.getBalance();
-        // Act
-        account.addTransaction(testWithdrawal);
-        // Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not change the balance if the amount is below 0, deposit", () => {
-        // Arrange
-        testDeposit = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12",
-            getType: "deposit",
-            getAmount: -500,
-            setBalanceAfterTransaction: () => { }
-        });
-        expected = account.getBalance();
-        // Act
-        account.addTransaction(testDeposit);
-        // Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not change the balance if the amount is below 0, withdrawal", () => {
-        // Arrange
-        testWithdrawal = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12",
-            getType: "withdrawal",
-            getAmount: -500,
-            setBalanceAfterTransaction: () => { }
-        });
-        expected = account.getBalance();
-        // Act
-        account.addTransaction(testWithdrawal);
-        // Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not change the balance if the amount is a string, deposit", () => {
-        // Arrange
-        testDeposit = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12",
-            getType: "deposit",
-            getAmount: "Surprise!",
-            setBalanceAfterTransaction: () => { }
-        });
-        expected = account.getBalance();
-        // Act
-        account.addTransaction(testDeposit);
-        // Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not change the balance if the amount is a string, withdrawal", () => {
-        // Arrange
-        testWithdrawal = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12",
-            getType: "withdrawal",
-            getAmount: "Surprise!",
-            setBalanceAfterTransaction: () => { }
-        });
-        expected = account.getBalance();
-        // Act
-        account.addTransaction(testWithdrawal);
-        // Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-
-    it("should not change the balance if the amount is a boolean true, deposit", () => {
-        // Arrange
-        testDeposit = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12",
-            getType: "deposit",
-            getAmount: true,
-            setBalanceAfterTransaction: () => { }
-        });
-        expected = account.getBalance();
-        // Act
-        account.addTransaction(testDeposit);
-        // Assess
-        expect(account.getBalance()).toBe(expected);
-    });
-    
-    it("should not change the balance if the amount is a boolean true, withdrawal", () => {
-        // Arrange
-        testWithdrawal = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12",
-            getType: "withdrawal",
-            getAmount: true,
-            setBalanceAfterTransaction: () => { }
-        });
         expected = account.getBalance();
         // Act
         account.addTransaction(testWithdrawal);

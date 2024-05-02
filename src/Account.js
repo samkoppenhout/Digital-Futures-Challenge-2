@@ -12,16 +12,11 @@ export default class Account {
     };
 
     addTransaction = (transaction) => {
-        if (this.transactionIsValid(transaction) === true) {
+        if (transaction.isValid() && this.isAboveBalance(transaction)) {
             this.balanceChange(transaction.getAmount(), transaction.getType());
             transaction.setBalanceAfterTransaction(this.#balance);
             this.#transactionHistory.push(transaction);
         }
-    };
-
-    transactionIsValid = (transaction) => {
-        if (this.isAboveBalance(transaction) && this.amountIsValid(transaction.getAmount())) {return true}
-        else {return false}
     };
 
     isAboveBalance = (transaction) => {
@@ -32,10 +27,5 @@ export default class Account {
     balanceChange = (amount, type) => {
         if (type === "deposit") { this.#balance += amount }
         else if (type === "withdrawal") { this.#balance -= amount }
-    };
-
-    amountIsValid = (amount) => {
-        if (typeof amount === "number" && amount > 0) { return true }
-        else { return false }
     };
 };
