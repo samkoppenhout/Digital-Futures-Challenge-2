@@ -1,6 +1,7 @@
 export default class StatementPrinter {
     print = (transactionHistory) => {
-        transactionHistory.forEach(transaction => {console.log(this.concatenateTransaction(transaction))})
+        console.log(`date       || credit  || debit   || balance`)
+        transactionHistory.reverse().forEach(transaction => {console.log(this.concatenateTransaction(transaction))})
     }
     concatenateTransaction = (transaction) => {
         return `${transaction.getDate()} || ${this.midSection(transaction)} || ${transaction.getBalanceAfterTransaction().toFixed(2)}`

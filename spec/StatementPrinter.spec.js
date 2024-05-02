@@ -62,7 +62,7 @@ describe("Printer class tests", () => {
         expect(statementPrinter.concatenateTransaction(testTransaction)).toBe(expected)
     })
 
-    it("should print the same number of lines as size of the transaction history", () => {
+    it("should print the same number of lines as size of the transaction history, plus one for the header", () => {
         // Arrange
         testTransaction = jasmine.createSpyObj("test transaction", {
             getDate: "10/01/2012",
@@ -83,7 +83,7 @@ describe("Printer class tests", () => {
             getBalanceAfterTransaction: 2500
         })
         testTransactionHistory = [testTransaction, testTransaction2, testTransaction3]
-        expected = testTransactionHistory.length
+        expected = testTransactionHistory.length + 1
         spyOn(console, 'log')
         // Act
         statementPrinter.print(testTransactionHistory)
