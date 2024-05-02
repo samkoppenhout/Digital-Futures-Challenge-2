@@ -29,11 +29,15 @@ export default class Transaction {
         return this.#valid
     }
     checkIfValid = () => {
-        if (this.checkAmount()) { this.#valid = true }
+        if (this.checkAmount() && this.checkType()) { this.#valid = true }
         else { this.#valid = false }
     }
     checkAmount = () => {
-        if (typeof amount === "number" && amount > 0) { return true }
+        if (typeof this.#amount === "number" && this.#amount > 0) { return true }
+        else { return false }
+    }
+    checkType = () => { 
+        if (this.#type === "deposit" || this.#type === "withdrawal") { return true }
         else { return false }
     }
 };
