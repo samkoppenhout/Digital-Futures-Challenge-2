@@ -37,7 +37,7 @@ export default class Account {
             // Add the transaction to the transactionHistory
             this.#transactionHistory.push(transaction);
             // Print a success message
-            console.log("Transaction Successful!");
+            console.log(`Transaction Successful! You made a ${transaction.getType()} of ${transaction.getAmount().toFixed(2)}. You now have ${this.#balance.toFixed(2)} available.`);
         }
     };
 
@@ -50,7 +50,7 @@ export default class Account {
         // If the type is withdrawal, check that the amount is less than the balance plus the account's overdraft limit, otherwise throw an error
         if (!(transaction.getType() === "withdrawal"  && (transaction.getAmount() > (this.#balance + this.#overdraftLimit)))) { return true }
         else {
-            throw new Error('A withdrawal cannot take your balance below 0.00 or your overdraft limit.')
+            throw new Error(`You cannot remove ${transaction.getAmount().toFixed(2)} because you only have ${(this.#balance + this.#overdraftLimit).toFixed(2)} available.`)
         }
     };
 
