@@ -7,16 +7,24 @@ export default class Transaction {
     #balanceAfterTransaction
 
     constructor(date, type, amount) {
-        try {
-            // Checks if the data is valid before it is added
-            this.checkIfValid(date, type, amount)
-            this.#date = date
-            this.#type = type
-            this.#amount = amount
-        } catch (error) { console.error('Transaction invalid:', error.message) }
-    }
+        // Checks if the data is valid before it is added and throws an error if it is not
+        this.checkIfValid(date, type, amount)
+        this.#date = date
+        this.#type = type
+        this.#amount = amount
+}
 
     // Methods
+    // Adds a method to create an instance of the transaction class so any errors can be caught
+    static createTransaction(date, type, amount) {
+        try {
+            return new this(date, type, amount);
+        } catch (error) {
+            console.error("Transaction Invalid:", error.message)
+            return undefined;
+        }
+    }
+
     getDate = () => {
         return this.#date;
     }
