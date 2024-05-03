@@ -49,9 +49,8 @@ describe("Transaction Class Tests:", () => {
         testType = "deposit"
         testAmount = 1
         // Act
-        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(transaction.isValid()).toBe(true)
+        expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).not.toThrowError()
     })
 
     it("should report not valid if the amount is negative", () => {
@@ -61,7 +60,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = -1
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Amount must be a positive number with no more than 2 decimal places.'))
     })
@@ -73,7 +72,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = 1.002
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Amount must be a positive number with no more than 2 decimal places.'))
     })
@@ -85,7 +84,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = "string"
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Amount must be a positive number with no more than 2 decimal places.'))
     })
@@ -97,7 +96,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = 1;
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Transaction type must be either "deposit" or "withdrawal"'))
     })
@@ -109,7 +108,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = 1
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Transaction type must be either "deposit" or "withdrawal"'))
     })
@@ -121,7 +120,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = 1
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Transaction date must be a string in the format "DD/MM/YYYY"'))
     })
@@ -133,7 +132,7 @@ describe("Transaction Class Tests:", () => {
         testAmount = 1
         // Act
         // Assess
-        expect(function () {
+        expect(() => {
             transaction = new Transaction(testDate, testType, testAmount)
         }).toThrow(new Error('Transaction date must be a string in the format "DD/MM/YYYY"'))
     })

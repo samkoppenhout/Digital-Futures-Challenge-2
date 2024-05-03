@@ -5,7 +5,6 @@ export default class Transaction {
     #type
     #amount
     #balanceAfterTransaction
-    #valid
 
     constructor(date, type, amount) {
         this.#date = date
@@ -30,16 +29,9 @@ export default class Transaction {
     getBalanceAfterTransaction = () => {
         return this.#balanceAfterTransaction;
     }
-    isValid = () => {
-        return this.#valid
-    }
 
     checkIfValid = () => {
-        if (this.checkAmount() && this.checkType() && this.checkDate()) {
-            this.#valid = true
-        } else {
-            this.#valid = false
-        }
+        this.checkAmount() && this.checkType() && this.checkDate()
     }
     checkAmount = () => {
         if (typeof this.#amount === "number" && this.#amount > 0 && ((this.#amount * 100) % 1 === 0)) { return true }
