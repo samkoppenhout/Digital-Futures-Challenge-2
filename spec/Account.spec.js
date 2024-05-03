@@ -102,6 +102,16 @@ describe("Transaction Tests:", () => {
         expect(account.getTransactionHistory().length).toBe(expected);
     });
 
+    it("should not add a transaction when the tryAddTransaction function is called on an undefined transaction", () => {
+        // Arrange
+        testDeposit = undefined;
+        expected = account.getTransactionHistory().length;
+        // Act
+        account.tryAddTransaction(testDeposit);
+        // Assert
+        expect(account.getTransactionHistory().length).toBe(expected);
+    });
+
 
     it("should print an error when tryAdd is called on a withdraw transaction which should take the account below its balance", () => {
         // Arrange
