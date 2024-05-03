@@ -8,14 +8,12 @@ beforeEach(() => {
         getDate: "20/02/12",
         getType: "deposit",
         getAmount: 500,
-        isValid: true,
         setBalanceAfterTransaction: () => { },
     });
     testWithdrawal = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12" ,
         getType: "withdrawal",
         getAmount: 500,
-        isValid: true,
         setBalanceAfterTransaction: () => { },
     });
 });
@@ -72,44 +70,35 @@ describe("Transaction Tests:", () => {
         expect(testDeposit.setBalanceAfterTransaction).toHaveBeenCalled();
     });
 
-    it("should not add a transaction to the transaction history if it reports not valid", () => {
-        // Arrange
-        testDeposit = jasmine.createSpyObj("test transaction", {
-            getDate: "20/02/12",
-            getType: "danger",
-            getAmount: 500,
-            isValid: false,
-            setBalanceAfterTransaction: () => { },
-        });
-        expected = account.getTransactionHistory().length
-        // Act
-        account.addTransaction(testDeposit);
-        // Assess
-        expect(account.getTransactionHistory().length).toBe(expected);
-    });
-
     it("should not let you withdraw below the balance", () => {
         // Arrange
-        expected = account.getBalance();
         // Act
-        account.addTransaction(testWithdrawal);
         // Assess
-        expect(account.getBalance()).toBe(expected);
+        expect(() => {
+            account.addTransaction(testWithdrawal);
+        }).toThrow(new Error('Withdrawal cannot take your balance below 0 or your overdraft limit.'))
     });
 
     it("should allow negative withdrawal if within the accounts overdraft", () => {
+        // Arrange
         account = new Account(1000)
-        testWithdrawal = jasmine.createSpyObj("test deposit", {
-            getDate: "20/02/12" ,
-            getType: "withdrawal",
-            getAmount: 500,
-            isValid: true,
-            setBalanceAfterTransaction: () => { },
-        });
         expected = account.getBalance() - 500;
         // Act
         account.addTransaction(testWithdrawal);
         // Assess
         expect(account.getBalance()).toBe(expected);
-    })
+    });
+
+    it("should not report any errors when tryAdd is called on an expected transaction", () => {
+        expect(() => {account.tryAddTransaction(testDeposit)}).not.toThrowError()
+    });
+    
+    it("should print an error when tryAdd is called on a withdraw transaction which should take the account below its balance", () => {
+        // Arrange
+        spyOn(console, 'error')
+        // Act
+        account.tryAddTransaction(testWithdrawal)
+        // Assert
+        expect(console.error).toHaveBeenCalled()
+    });
 });

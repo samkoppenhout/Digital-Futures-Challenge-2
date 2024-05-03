@@ -17,8 +17,16 @@ export default class Account {
         return this.#transactionHistory;
     };
 
+    tryAddTransaction = (transaction) => {
+        try {
+            this.addTransaction(transaction)
+        } catch (error) {
+            console.error('Transaction invalid:', error)
+        }
+    }
+
     addTransaction = (transaction) => {
-        if (transaction.isValid() && this.isAboveBalance(transaction)) {
+        if (this.isAboveBalance(transaction)) {
             this.balanceChange(transaction.getAmount(), transaction.getType());
             transaction.setBalanceAfterTransaction(this.#balance);
             this.#transactionHistory.push(transaction);
@@ -27,7 +35,10 @@ export default class Account {
 
     isAboveBalance = (transaction) => {
         if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= (this.#balance + this.#overdraftLimit)) || (transaction.getType() === "deposit"))) { return true }
-        else {return false}
+        else {
+            throw new Error('Withdrawal cannot take your balance below 0 or your overdraft limit.')
+            return false
+        }
     };
 
     balanceChange = (amount, type) => {
