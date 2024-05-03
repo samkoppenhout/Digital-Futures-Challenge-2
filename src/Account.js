@@ -46,7 +46,7 @@ export default class Account {
 
     isAboveBalance = (transaction) => {
         // If the type is withdrawal, check that the amount is less than the balance plus the account's overdraft limit, otherwise throw an error
-        if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= (this.#balance + this.#overdraftLimit)) || (transaction.getType() === "deposit"))) { return true }
+        if (!(transaction.getType() === "withdrawal"  && (transaction.getAmount() > (this.#balance + this.#overdraftLimit)))) { return true }
         else {
             throw new Error('A withdrawal cannot take your balance below 0.00 or your overdraft limit.')
         }
