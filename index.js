@@ -90,3 +90,27 @@ console.log("\x1b[34m%s\x1b[0m", "==========")
 console.log("\x1b[34m%s\x1b[0m", "Below is a sample statement for these transactions:")
 Printer.print(overdraftAccount.getTransactionHistory());
 
+console.log("\x1b[34m%s\x1b[0m", "==========")
+console.log("\x1b[34m%s\x1b[0m", "The following transactions are to match the briefing as closely as possible")
+
+account = new Account();
+
+console.log("\x1b[34m%s\x1b[0m", "==========")
+console.log("\x1b[34m%s\x1b[0m", "a client makes a deposit of 1000 on 10-01-2012")
+transaction = Transaction.createTransaction("10/01/2012", "deposit", 1000);
+account.tryAddTransaction(transaction);
+
+console.log("\x1b[34m%s\x1b[0m", "==========")
+console.log("\x1b[34m%s\x1b[0m", "a deposit of 2000 on 13-01-2012")
+transaction = Transaction.createTransaction("13/01/2012", "deposit", 2000);
+account.tryAddTransaction(transaction);
+
+console.log("\x1b[34m%s\x1b[0m", "==========")
+console.log("\x1b[34m%s\x1b[0m", "a withdrawal of 500 on 14-01-2012")
+transaction = Transaction.createTransaction("14/01/2012", "withdrawal", 500);
+account.tryAddTransaction(transaction);
+
+console.log("\x1b[34m%s\x1b[0m", "==========")
+console.log("\x1b[34m%s\x1b[0m", "she prints her bank statement:")
+Printer.print(account.getTransactionHistory());
+
