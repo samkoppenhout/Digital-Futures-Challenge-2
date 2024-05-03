@@ -5,6 +5,7 @@ export default class Account {
     #overdraftLimit = 0;
 
     constructor(overdraftLimit = 0) { 
+        // Sets the overdraft limit to 0 if not set
         this.#overdraftLimit = overdraftLimit
     }
     
@@ -37,7 +38,7 @@ export default class Account {
             // Add the transaction to the transactionHistory
             this.#transactionHistory.push(transaction);
             // Print a success message
-            console.log(`Transaction Successful! You made a ${transaction.getType()} of ${transaction.getAmount().toFixed(2)}. You now have ${this.#balance.toFixed(2)} available.`);
+            console.log(`Transaction Successful! You made a ${transaction.getType()} of ${transaction.getAmount().toFixed(2)}. Your balance is now ${this.#balance.toFixed(2)}.`);
         }
     };
 
