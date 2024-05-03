@@ -32,7 +32,7 @@ export default class Account {
         if (this.validCheck(transaction)) {
             // Change the balance on the account
             this.balanceChange(transaction.getAmount(), transaction.getType());
-            // Record the new balance on the transaction
+            // Record the new balance on the transaction object
             transaction.setBalanceAfterTransaction(this.#balance);
             // Add the transaction to the transactionHistory
             this.#transactionHistory.push(transaction);
