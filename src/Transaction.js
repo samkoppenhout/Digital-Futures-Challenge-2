@@ -35,18 +35,27 @@ export default class Transaction {
     }
 
     checkIfValid = () => {
-        if (this.checkAmount() && this.checkType() && this.checkDate()) { this.#valid = true }
-        else { this.#valid = false }
+        if (this.checkAmount() && this.checkType() && this.checkDate()) {
+            this.#valid = true
+        } else {
+            this.#valid = false
+        }
     }
     checkAmount = () => {
         if (typeof this.#amount === "number" && this.#amount > 0 && ((this.#amount * 100) % 1 === 0)) { return true }
-        else { return false }
+        else {
+            throw new Error('Amount must be a positive number with no more than 2 decimal places.')
+        }
     }
     checkType = () => { 
         if (this.#type === "deposit" || this.#type === "withdrawal") { return true }
-        else { return false }
+        else {
+            throw new Error('Transaction type must be either "deposit" or "withdrawal"')
+        }
     }
     checkDate = () => {
-        return (this.#dateRegex.test(this.#date))
+        if (this.#dateRegex.test(this.#date)) { return true } else {
+            throw new Error('Transaction date must be a string in the format "DD/MM/YYYY"')
+        }
     }
 };
