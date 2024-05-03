@@ -36,12 +36,14 @@ export default class Account {
             transaction.setBalanceAfterTransaction(this.#balance);
             // Add the transaction to the transactionHistory
             this.#transactionHistory.push(transaction);
+            // Print a success message
+            console.log("Transaction Successful!");
         }
     };
 
     validCheck = (transaction) => { 
-        // If the amount passes the isAboveBalance test and is not already in the history array, return true.
-        return (this.isAboveBalance(transaction) && !this.#transactionHistory.includes(transaction))
+        // If the amount passes the isAboveBalance test and the transaction is not undefined or not already in the history array, return true.
+        return (transaction !== undefined && this.isAboveBalance(transaction) && !this.#transactionHistory.includes(transaction))
     };
 
     isAboveBalance = (transaction) => {

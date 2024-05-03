@@ -111,4 +111,13 @@ describe("Transaction Tests:", () => {
         // Assert
         expect(account.getTransactionHistory().length).toBe(expected);
     });
+
+    it("should print a transaction success message when a new transaction is added", () => {
+        // Arrange
+        spyOn(console, 'log');
+        // Act
+        account.tryAddTransaction(testDeposit);
+        // Assert
+        expect(console.log).toHaveBeenCalled();
+    });
 });
