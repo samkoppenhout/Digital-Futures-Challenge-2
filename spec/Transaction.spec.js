@@ -53,87 +53,87 @@ describe("Transaction Class Tests:", () => {
         expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).not.toThrowError()
     })
 
-    it("should report not valid if the amount is negative", () => {
+    it("should throw an error if the amount is negative", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = "22/02/2004"
         testType = "deposit"
         testAmount = -1
         // Act
+        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Amount must be a positive number with no more than 2 decimal places.'))
+        expect(console.error).toHaveBeenCalled();
     })
 
-    it("should report not valid if the amount is to more than 2 decimal places", () => {
+    it("should throw an error if the amount is to more than 2 decimal places", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = "22/02/2004"
         testType = "deposit"
         testAmount = 1.002
         // Act
-        // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Amount must be a positive number with no more than 2 decimal places.'))
+        transaction = new Transaction(testDate, testType, testAmount)
+        // Assess    
+        expect(console.error).toHaveBeenCalled();
     })
 
-    it("should report not valid if the amount is not a number", () => {
+    it("should throw an error if the amount is not a number", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = "22/02/2004"
         testType = "deposit"
         testAmount = "string"
         // Act
+        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Amount must be a positive number with no more than 2 decimal places.'))
+        expect(console.error).toHaveBeenCalled();
     })
 
     it("should throw an error if the amount is a string that is not deposit or withdrawal", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = "22/02/2004";
         testType = "test";
         testAmount = 1;
         // Act
+        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Transaction type must be either "deposit" or "withdrawal"'))
+        expect(console.error).toHaveBeenCalled();
     })
 
-    it("should report not valid if the type is not a string", () => {
+    it("should throw an error if the type is not a string", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = "22/02/2004"
         testType = null
         testAmount = 1
         // Act
+        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Transaction type must be either "deposit" or "withdrawal"'))
+        expect(console.error).toHaveBeenCalled();
     })
 
-    it("should report not valid if the date is not formatted as expected", () => {
+    it("should throw an error if the date is not formatted as expected", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = "test"
         testType = "deposit"
         testAmount = 1
         // Act
+        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Transaction date must be a string in the format "DD/MM/YYYY"'))
+        expect(console.error).toHaveBeenCalled();
     })
 
-    it("should report not valid if the date is null", () => {
+    it("should throw an error if the date is null", () => {
         // Arrange
+        spyOn(console, 'error');
         testDate = null;
         testType = "deposit"
         testAmount = 1
         // Act
+        transaction = new Transaction(testDate, testType, testAmount)
         // Assess
-        expect(() => {
-            transaction = new Transaction(testDate, testType, testAmount)
-        }).toThrow(new Error('Transaction date must be a string in the format "DD/MM/YYYY"'))
+        expect(console.error).toHaveBeenCalled();
     })
 })

@@ -7,10 +7,12 @@ export default class Transaction {
     #balanceAfterTransaction
 
     constructor(date, type, amount) {
-        this.#date = date
-        this.#type = type
-        this.#amount = amount
-        this.checkIfValid()
+        try {
+            this.checkIfValid(date, type, amount)
+            this.#date = date
+            this.#type = type
+            this.#amount = amount
+        } catch (error) { console.error('Transaction invalid:', error.message) }
     }
 
     // Methods
@@ -30,23 +32,23 @@ export default class Transaction {
         return this.#balanceAfterTransaction;
     }
 
-    checkIfValid = () => {
-        this.checkAmount() && this.checkType() && this.checkDate()
+    checkIfValid = (date, type, amount) => {
+        this.checkAmount(amount) && this.checkType(type) && this.checkDate(date)
     }
-    checkAmount = () => {
-        if (typeof this.#amount === "number" && this.#amount > 0 && ((this.#amount * 100) % 1 === 0)) { return true }
+    checkAmount = (amount) => {
+        if (typeof amount === "number" && amount > 0 && ((amount * 100) % 1 === 0)) { return true }
         else {
             throw new Error('Amount must be a positive number with no more than 2 decimal places.')
         }
     }
-    checkType = () => { 
-        if (this.#type === "deposit" || this.#type === "withdrawal") { return true }
+    checkType = (type) => { 
+        if (type === "deposit" || type === "withdrawal") { return true }
         else {
             throw new Error('Transaction type must be either "deposit" or "withdrawal"')
         }
     }
-    checkDate = () => {
-        if (this.#dateRegex.test(this.#date)) { return true } else {
+    checkDate = (date) => {
+        if (this.#dateRegex.test(date)) { return true } else {
             throw new Error('Transaction date must be a string in the format "DD/MM/YYYY"')
         }
     }

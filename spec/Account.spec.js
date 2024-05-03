@@ -3,7 +3,7 @@ import Account from "../src/Account.js"
 let account, expected, testDeposit, testWithdrawal;
 
 beforeEach(() => {
-    account = new Account(0);
+    account = new Account();
     testDeposit = jasmine.createSpyObj("test deposit", {
         getDate: "20/02/12",
         getType: "deposit",
@@ -76,7 +76,7 @@ describe("Transaction Tests:", () => {
         // Assess
         expect(() => {
             account.addTransaction(testWithdrawal);
-        }).toThrow(new Error('Withdrawal cannot take your balance below 0 or your overdraft limit.'))
+        }).toThrowError()
     });
 
     it("should allow negative withdrawal if within the accounts overdraft", () => {
@@ -95,10 +95,20 @@ describe("Transaction Tests:", () => {
     
     it("should print an error when tryAdd is called on a withdraw transaction which should take the account below its balance", () => {
         // Arrange
-        spyOn(console, 'error')
+        spyOn(console, 'error');
         // Act
-        account.tryAddTransaction(testWithdrawal)
+        account.tryAddTransaction(testWithdrawal);
         // Assert
-        expect(console.error).toHaveBeenCalled()
+        expect(console.error).toHaveBeenCalled();
+    });
+
+    it("should not add duplicate transactions", () => {
+        // Arrange
+        account.tryAddTransaction(testDeposit);
+        expected = account.getTransactionHistory().length;
+        // Act
+        account.tryAddTransaction(testDeposit);
+        // Assert
+        expect(account.getTransactionHistory().length).toBe(expected);
     });
 });

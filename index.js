@@ -3,19 +3,26 @@ import Transaction from './src/Transaction.js';
 import Printer from "./src/StatementPrinter.js"
 
 let account = new Account(1000);
-let transaction1 = new Transaction("01/01/2022", "deposit", 500);
-let transaction2 = new Transaction("05/01/2022", "deposit", 25);
-let transaction3 = new Transaction("10/01/2022", "deposit", 5);
-let transaction4 = new Transaction("15/01/2022", "withdrawal", 1000);
-let transaction5 = new Transaction("20/01/2022", "deposit", 20);
-let transaction6 = new Transaction("22/01/2022", "withdrawal", 50);
+let transaction;
 
+transaction = new Transaction("01/01/2022", "deposit", 500);
+account.tryAddTransaction(transaction);
 
-account.addTransaction(transaction1);
-account.addTransaction(transaction2);
-account.addTransaction(transaction3);
-account.addTransaction(transaction4);
-account.addTransaction(transaction5);
-account.addTransaction(transaction6);
+transaction = new Transaction("05/01/2022", "deposit", 25);
+account.tryAddTransaction(transaction);
+
+transaction = new Transaction("10/01/2022", null, 5);
+account.tryAddTransaction(transaction);
+
+transaction = new Transaction("15/01/2022", "withdrawal", 1000);
+account.tryAddTransaction(transaction);
+
+transaction = new Transaction("20/01/2022", "deposit", 20);
+account.tryAddTransaction(transaction);
+account.tryAddTransaction(transaction);
+account.tryAddTransaction(transaction);
+
+transaction = new Transaction("22/01/2022", "withdrawal", 50);
+account.tryAddTransaction(transaction);
 
 Printer.print(account.getTransactionHistory());
