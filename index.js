@@ -7,7 +7,6 @@ console.log("\x1b[34m%s\x1b[0m", "Any text in blue is purely for the demonstrati
 console.log("\x1b[34m%s\x1b[0m", "Any text in red or green is part of usual functionality.")
 console.log("\x1b[34m%s\x1b[0m", "==========")
 console.log("\x1b[34m%s\x1b[0m", "The following transactions are for an account with no overdraft.")
-console.log("\x1b[34m%s\x1b[0m", "==========")
 
 let transaction;
 let account = new Account();
