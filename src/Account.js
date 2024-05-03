@@ -17,6 +17,7 @@ export default class Account {
         return this.#transactionHistory;
     };
 
+    // Wraps the addTransaction function in a try block to catch any errors
     tryAddTransaction = (transaction) => {
         try {
             this.addTransaction(transaction)
@@ -25,27 +26,34 @@ export default class Account {
         }
     }
 
+    // Adds a new transaction
     addTransaction = (transaction) => {
+        // If the transaction passes the checks in validCheck
         if (this.validCheck(transaction)) {
+            // Change the balance on the account
             this.balanceChange(transaction.getAmount(), transaction.getType());
+            // Record the new balance on the transaction
             transaction.setBalanceAfterTransaction(this.#balance);
+            // Add the transaction to the transactionHistory
             this.#transactionHistory.push(transaction);
         }
     };
 
     validCheck = (transaction) => { 
+        // If the amount passes the isAboveBalance test and is not already in the history array, return true.
         return (this.isAboveBalance(transaction) && !this.#transactionHistory.includes(transaction))
     };
 
     isAboveBalance = (transaction) => {
+        // If the type is withdrawal, check that the amount is less than the balance plus the account's overdraft limit, otherwise throw an error
         if ((transaction.getType() === "withdrawal"  && (transaction.getAmount() <= (this.#balance + this.#overdraftLimit)) || (transaction.getType() === "deposit"))) { return true }
         else {
             throw new Error('A withdrawal cannot take your balance below 0.00 or your overdraft limit.')
-            return false
         }
     };
 
     balanceChange = (amount, type) => {
+        // Adjust the account balance by the given amount
         if (type === "deposit") { this.#balance += amount }
         else if (type === "withdrawal") { this.#balance -= amount }
     };
