@@ -93,6 +93,16 @@ describe("Transaction Tests:", () => {
         expect(() => {account.tryAddTransaction(testDeposit)}).not.toThrowError()
     });
     
+    it("should add a new transaction when the tryAddTransaction error catching function is called", () => {
+        // Arrange
+        expected = account.getTransactionHistory().length + 1;
+        // Act
+        account.tryAddTransaction(testDeposit);
+        // Assert
+        expect(account.getTransactionHistory().length).toBe(expected);
+    });
+
+
     it("should print an error when tryAdd is called on a withdraw transaction which should take the account below its balance", () => {
         // Arrange
         spyOn(console, 'error');
