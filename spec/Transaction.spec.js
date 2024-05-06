@@ -159,7 +159,7 @@ describe("Transaction Class Tests:", () => {
     });
 
     describe("Static Factory Method Tests:", () => {
-        it("should not create an instance of the transaction class when the static factory  method is called with incorrect arguments", () => {
+        it("should create an instance of the transaction class when the static factory method is called with correct arguments", () => {
             // Arrange
             testDate = "22/02/2004"
             testType = "deposit"
@@ -170,7 +170,7 @@ describe("Transaction Class Tests:", () => {
             expect(transaction).not.toBe(undefined)
         });
 
-        it("should not create an instance of the transaction class when the static factory  method is called with incorrect arguments", () => {
+        it("should not create an instance of the transaction class when the static factory method is called with incorrect arguments", () => {
             // Arrange
             testDate = null
             testType = "deposit"

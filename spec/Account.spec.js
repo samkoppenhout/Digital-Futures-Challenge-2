@@ -44,6 +44,15 @@ describe("Account Class Tests:", () => {
             expect(account.getBalance()).toBeGreaterThan(expected);
         });
 
+        it("should increase the balance by the correct amount if the transaction is type deposit", () => {
+            // Arrange
+            expected = account.getBalance() + 500;
+            // Act
+            account.addTransaction(testDeposit);
+            // Assess
+            expect(account.getBalance()).toBe(expected);
+        });
+
         it("should decrease the balance if the transaction is type withdrawal", () => {
             // Arrange
             account.addTransaction(testDeposit);
@@ -52,6 +61,16 @@ describe("Account Class Tests:", () => {
             account.addTransaction(testWithdrawal);
             // Assess
             expect(account.getBalance()).toBeLessThan(expected);
+        });
+
+        it("should increase the balance by the correct amount if the transaction is type withdrawal", () => {
+            // Arrange
+            account.addTransaction(testDeposit);
+            expected = account.getBalance() - 500;
+            // Act
+            account.addTransaction(testWithdrawal);
+            // Assess
+            expect(account.getBalance()).toBe(expected);
         });
 
         it("should not let you withdraw below the balance below zero", () => {
