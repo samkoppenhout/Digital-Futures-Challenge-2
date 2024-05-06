@@ -43,7 +43,7 @@
     "wrap-ansi-cjs": "^7.0.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/index.js",
     "test": "jasmine"
   },
   "author": "",
