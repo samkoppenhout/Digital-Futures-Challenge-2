@@ -58,7 +58,6 @@ describe("Transaction Class Tests:", () => {
 
         it("should throw an error if the amount is negative", () => {
             // Arrange
-            spyOn(console, 'error');
             testDate = "22/02/2004"
             testType = "deposit"
             testAmount = -1
@@ -67,9 +66,19 @@ describe("Transaction Class Tests:", () => {
             expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).toThrowError()
         })
 
-        it("should throw an error if the amount is to more than 2 decimal places", () => {
+        it("should throw an error if the amount is zero", () => {
             // Arrange
             spyOn(console, 'error');
+            testDate = "22/02/2004"
+            testType = "deposit"
+            testAmount = 0
+            // Act
+            // Assess
+            expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).toThrowError()
+        })
+
+        it("should throw an error if the amount is to more than 2 decimal places", () => {
+            // Arrange
             testDate = "22/02/2004"
             testType = "deposit"
             testAmount = 1.002
@@ -78,9 +87,8 @@ describe("Transaction Class Tests:", () => {
             expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).toThrowError()
         })
 
-        it("should throw an error if the amount is not a number", () => {
+        it("should throw an error if the amount is a string", () => {
             // Arrange
-            spyOn(console, 'error');
             testDate = "22/02/2004"
             testType = "deposit"
             testAmount = "string"
@@ -89,9 +97,28 @@ describe("Transaction Class Tests:", () => {
             expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).toThrowError()
         })
 
-        it("should throw an error if the amount is a string that is not deposit or withdrawal", () => {
+        it("should throw an error if the amount is null", () => {
             // Arrange
-            spyOn(console, 'error');
+            testDate = "22/02/2004"
+            testType = "deposit"
+            testAmount = null
+            // Act
+            // Assess
+            expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).toThrowError()
+        })
+
+        it("should throw an error if the amount is a boolean true", () => {
+            // Arrange
+            testDate = "22/02/2004"
+            testType = "deposit"
+            testAmount = true
+            // Act
+            // Assess
+            expect(() => { transaction = new Transaction(testDate, testType, testAmount) }).toThrowError()
+        })
+
+        it("should throw an error if the type is a string that is not deposit or withdrawal", () => {
+            // Arrange
             testDate = "22/02/2004";
             testType = "test";
             testAmount = 1;
@@ -102,7 +129,6 @@ describe("Transaction Class Tests:", () => {
 
         it("should throw an error if the type is not a string", () => {
             // Arrange
-            spyOn(console, 'error');
             testDate = "22/02/2004"
             testType = null
             testAmount = 1
@@ -113,7 +139,6 @@ describe("Transaction Class Tests:", () => {
 
         it("should throw an error if the date is not formatted as expected", () => {
             // Arrange
-            spyOn(console, 'error');
             testDate = "test";
             testType = "deposit";
             testAmount = 1;
@@ -124,7 +149,6 @@ describe("Transaction Class Tests:", () => {
 
         it("should throw an error if the date is null", () => {
             // Arrange
-            spyOn(console, 'error');
             testDate = null;
             testType = "deposit";
             testAmount = 1;

@@ -54,7 +54,6 @@ describe("Account Class Tests:", () => {
             expect(account.getBalance()).toBeLessThan(expected);
         });
 
-
         it("should not let you withdraw below the balance below zero", () => {
             // Arrange
             // Act
@@ -88,7 +87,7 @@ describe("Account Class Tests:", () => {
             account.tryAddTransaction(testDeposit);
             expected = account.getTransactionHistory().length;
             // Act
-            account.tryAddTransaction(testDeposit);
+            account.addTransaction(testDeposit);
             // Assert
             expect(account.getTransactionHistory().length).toBe(expected);
         });

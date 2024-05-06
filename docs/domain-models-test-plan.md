@@ -50,6 +50,6 @@ User Story 6:
 
 ## Domain Models
 
-The domain models used for the core features can be seen in "image-2". The domain models for the additional features are available in "image-3".
+The domain models used for the core features can be seen in "image-2". The domain models for the additional features are available in "image-3", and were constructed with the help of generative AI.
 
 ## Testing
