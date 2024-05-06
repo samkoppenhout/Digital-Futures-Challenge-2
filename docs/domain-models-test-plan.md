@@ -45,7 +45,7 @@ User Story 5:
 User Story 6:
 
 - As a user,
-- when I attempt to withdraw funds that would result in a negative balance, I want the withdrawal to be allowed only up to the value of my configured overdraft limit,
+- When I attempt to withdraw funds that would result in a negative balance, I want the withdrawal to be allowed only up to the value of my configured overdraft limit,
 - So that I do not over spend
 
 ## Domain Models
@@ -119,3 +119,11 @@ Overdraft Tests:
 As the output for the printer was visual, the formatting and colours of this class was tested manually.
 
 - It should print four times the number of lines as size of the transaction history, plus one for the header.
+
+# Images
+
+| Image Name | File Path                 | Description                                                   |
+| ---------- | ------------------------- | ------------------------------------------------------------- |
+| image-1    | ./docs/images/image-1.png | A screenshot of the kanban used to track project progress     |
+| image-2    | ./docs/images/image-2.png | A screenshot of the domain models for the core features       |
+| image-3    | ./docs/images/image-3.png | A screenshot of the domain models for the additional features |

@@ -37,4 +37,6 @@ Secondly, a user interface would be useful to allow users to input amounts into 
 
 In conclusion this application provides a large amount of functionality and has the potential to improve customers banking experience, increase bank revenue and decrease bank spending. Although there are a couple of risks as addressed above which are being focused on in future development, the software in its current state is undoubtedly a very large improvement over running a bank without any telling software for all parties involved.
 
+## References
+
 [1] https://www.bankofengland.co.uk/payment-and-settlement/payment-and-settlement-statistics
