@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Modern banks almost all use some form of software to perform transactions, for a multitude of reasons. By introducing even the most simple software solutions to a banking space you can reduce the requirement on human workers, meaning removing many of the key areas of human error and allowing transactions to take place 24 hours a day, increasing the benefit to the customers. According to the Bank of England the average bank settlement totaled over £717,661,000,000 per day for the first quarter of 2024[1]; Performing this number of transactions manually would be almost impossible, slowing down customer access to money and services and dramatically increasing the cost of labour for banks. This software is a simple solution to allow transactions for many parallel accounts, as well as a record of each.
+Modern banks almost all use some form of software to perform transactions, for a multitude of reasons. By introducing even the most simple software solutions to a banking space you can reduce the requirement on human workers, meaning removing many of the key areas of human error and allowing transactions to take place 24 hours a day, increasing the benefit to the customers. According to the Bank of England the average bank settlement totalled over £717,661,000,000 per day for the first quarter of 2024[1]; Performing this number of transactions manually would be almost impossible, slowing down customer access to money and services and dramatically increasing the cost of labour for banks. This software is a simple solution to allow transactions for many parallel accounts, as well as a record of each.
 
 ## Key Features
 
